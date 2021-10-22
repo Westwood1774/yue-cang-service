@@ -8,7 +8,7 @@ export class UserController {
   }
 
   @Get('users')
-  async getAllProductsView() {
+  async getAllUsersView() {
     return await this.userService.getAllUserView();
   }
 

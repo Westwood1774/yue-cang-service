@@ -9,14 +9,14 @@ const table = `${schema}.${userTable}`;
 
 @Injectable()
 export class UserDao {
-  constructor(@InjectRepository(User) private productRepo: Repository<User>) {
+  constructor(@InjectRepository(User) private userRepo: Repository<User>) {
   }
 
   async getAllUsers(): Promise<User[]> {
     try {
       const query = `SELECT * FROM ${table};`;
       Logger.debug(query);
-      const users = await this.productRepo.query(query);
+      const users = await this.userRepo.query(query);
       return users;
     } catch (e) {
       Logger.error(e);
@@ -35,7 +35,7 @@ export class UserDao {
       const query = `INSERT INTO ${table} (username, password, first_name, last_name, email, phone, role) 
       VALUES ('${username}', '${password}', '${fName}', '${lName}', '${email}', '${phone}', '${role}');`;
       Logger.debug(query);
-      await this.productRepo.query(query);
+      await this.userRepo.query(query);
     } catch (e) {
       Logger.error(e);
     }
@@ -46,7 +46,7 @@ export class UserDao {
       const where = `WHERE U.username = '${username}'`;
       const query = `SELECT * FROM ${table} AS U ${where};`;
       Logger.debug(query);
-      return await this.productRepo.query(query);
+      return await this.userRepo.query(query);
     } catch (e) {
       Logger.error(e);
     }
@@ -56,7 +56,7 @@ export class UserDao {
     try {
       const query = `TRUNCATE TABLE ${table};`;
       Logger.debug(query);
-      await this.productRepo.query(query);
+      await this.userRepo.query(query);
     } catch (e) {
       Logger.error(e);
     }
