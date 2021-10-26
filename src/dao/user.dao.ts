@@ -15,7 +15,7 @@ export class UserDao {
   async getAllUsers(): Promise<User[]> {
     try {
       const query = `SELECT * FROM ${table};`;
-      Logger.debug(query);
+      Logger.log(query);
       const users = await this.userRepo.query(query);
       return users;
     } catch (e) {
@@ -34,7 +34,7 @@ export class UserDao {
         role = user.role || 'NULL';
       const query = `INSERT INTO ${table} (username, password, first_name, last_name, email, phone, role) 
       VALUES ('${username}', '${password}', '${fName}', '${lName}', '${email}', '${phone}', '${role}');`;
-      Logger.debug(query);
+      Logger.log(query);
       await this.userRepo.query(query);
     } catch (e) {
       Logger.error(e);
@@ -45,7 +45,7 @@ export class UserDao {
     try {
       const where = `WHERE U.username = '${username}'`;
       const query = `SELECT * FROM ${table} AS U ${where};`;
-      Logger.debug(query);
+      Logger.log(query);
       return await this.userRepo.query(query);
     } catch (e) {
       Logger.error(e);
@@ -55,7 +55,7 @@ export class UserDao {
   async clearAllUser() {
     try {
       const query = `TRUNCATE TABLE ${table};`;
-      Logger.debug(query);
+      Logger.log(query);
       await this.userRepo.query(query);
     } catch (e) {
       Logger.error(e);

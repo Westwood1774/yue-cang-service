@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { User } from '../model/user';
+import { authenticationRequest } from '../model/authentication.request';
 
 @Controller('api/')
 export class UserController {
@@ -25,6 +26,17 @@ export class UserController {
   @Post('register')
   async addUser(@Body() user: User) {
     return await this.userService.addUser(user);
+  }
+
+  /*
+    {
+      "username": "weichen",
+      "password": "123456",
+    }
+   */
+  @Post('login')
+  async login(@Body() userRequest: authenticationRequest) {
+    return await this.userService.login(userRequest);
   }
 
   @Delete('clear')
